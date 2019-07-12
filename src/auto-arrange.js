@@ -39,11 +39,48 @@ export class AutoArrange {
     }
     
     arrange(node = this.editor.nodes[0]) {
-        const table = this.getNodesTable(node);
+
+        var completePaths = [...this.editor.nodes];
+
+        console.log ('Todos los nodos');
+        console.log (completePaths)
+
+        var contador = 0;
+        while (completePaths.length > 0) {
+        contador= contador + 1;
+        console.log ('Camino: ' + (contador));
+        const table = this.getNodesTable(completePaths[0]);
+        // completePaths = completePaths.filter(x => !table[0].includes(x));
+            var contadorNumero = 0;
+       
+            for (let nodes of completePaths) {
+                for (let tabla of table) {
+                    for (let node of tabla) {
+                        if (node == nodes ) {
+                            completePaths.splice (contadorNumero,1);
+
+                            completePaths = [...completePaths];
+                        }
+                    }
+                }
+              
+                contadorNumero ++;
+            }
+        
+
+        console.log ('Los nodos que conforman el camino:');
+        console.log (table);
+        console.log('Los caminos despues de filtrar');
+        console.log (completePaths);
+
+        console.log ('Paths despues de borrar')
+         
         const normalized = Object.keys(table).sort((i1, i2) => +i1 - + i2).map(key => table[key]);
         const widths = normalized.map(col => Math.max(...col.map(n => this.nodeSize(n).width)));
 
         let x = 0;
+
+        this.margin.y = this.margin.y + (contador * 50);
 
         for (let [i, col] of Object.entries(normalized)) {
             const heights = col.map(n => this.nodeSize(n).height);
@@ -60,5 +97,13 @@ export class AutoArrange {
                 this.editor.view.updateConnections({ node: n });
             }
         }
+
+
+
+        }
+
+        console.log ('Salgo')
+        
+      
     }
 }

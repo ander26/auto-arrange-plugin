@@ -98,12 +98,18 @@ export class AutoArrange {
         console.log('Alturas');
 
         for (let [j, n] of Object.entries(col)) {
-          y += heights[j] + this.margin.y + heightOffset;
+          if (j == 0) {
+            y += heights[j] + this.margin.y + heightOffset;
+          } else {
+            y += heights[j] + this.margin.y ;
+          }
+         
           maximumHeight = Math.max(maximumHeight, y);
 
           console.log(y);
 
-          this.editor.view.nodes.get(n).translate(x, y - fullHeight / 2);
+          // this.editor.view.nodes.get(n).translate(x, y - fullHeight / 2);
+          this.editor.view.nodes.get(n).translate(x, y );
           this.editor.view.updateConnections({ node: n });
         }
 
@@ -114,6 +120,7 @@ export class AutoArrange {
       console.log('Maxima altura')
       heightOffset = maximumHeight + 50;
       console.log(maximumHeight);
+      console.log (heightOffset);
     }
 
     console.log(this.editor.nodes);

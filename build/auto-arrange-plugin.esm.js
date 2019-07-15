@@ -184,16 +184,10 @@ function () {
       var node = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.editor.nodes[0];
 
       var completePaths = _toConsumableArray(this.editor.nodes);
-
-      console.log('Todos los nodos');
-      console.log(completePaths);
-      var counter = 0;
       var maximumHeight = 0;
       var heightOffset = 0;
 
       var _loop = function _loop() {
-        counter = counter + 1;
-        console.log('Camino: ' + counter);
 
         var table = _this2.getNodesTable(completePaths[0]); // completePaths = completePaths.filter(x => !table[0].includes(x));
 
@@ -272,10 +266,6 @@ function () {
           }
         }
 
-        console.log('Los nodos que conforman el camino:');
-        console.log(table);
-        console.log('Los caminos despues de filtrar');
-        console.log(completePaths);
         var normalized = Object.keys(table).sort(function (i1, i2) {
           return +i1 - +i2;
         }).map(function (key) {
@@ -301,7 +291,6 @@ function () {
           });
           var y = 0;
           x += widths[i] + _this2.margin.x;
-          console.log('Alturas');
 
           for (var _i2 = 0, _Object$entries2 = Object.entries(col); _i2 < _Object$entries2.length; _i2++) {
             var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
@@ -314,8 +303,7 @@ function () {
               y += heights[j] + _this2.margin.y;
             }
 
-            maximumHeight = Math.max(maximumHeight, y);
-            console.log(y); // this.editor.view.nodes.get(n).translate(x, y - fullHeight / 2);
+            maximumHeight = Math.max(maximumHeight, y); // this.editor.view.nodes.get(n).translate(x, y - fullHeight / 2);
 
             _this2.editor.view.nodes.get(n).translate(x, y);
 
@@ -325,10 +313,7 @@ function () {
           }
         }
 
-        console.log('Maxima altura');
         heightOffset = maximumHeight + 50;
-        console.log(maximumHeight);
-        console.log(heightOffset);
       };
 
       while (completePaths.length > 0) {
@@ -336,9 +321,6 @@ function () {
 
         _loop();
       }
-
-      console.log(this.editor.nodes);
-      console.log('Salgo');
     }
   }]);
 

@@ -280,7 +280,7 @@ function () {
             return _this2.nodeSize(n).width;
           })));
         });
-        var x = 0;
+        var x = _this2.margin.x;
 
         for (var _i = 0, _Object$entries = Object.entries(normalized); _i < _Object$entries.length; _i++) {
           var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
@@ -294,7 +294,6 @@ function () {
             return a + b + _this2.margin.y;
           });
           var y = 0;
-          x += widths[i] + _this2.margin.x;
 
           for (var _i2 = 0, _Object$entries2 = Object.entries(col); _i2 < _Object$entries2.length; _i2++) {
             var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
@@ -315,6 +314,8 @@ function () {
               node: n
             });
           }
+
+          x += widths[i] + _this2.margin.x;
         }
 
         heightOffset = maximumHeight + 50;

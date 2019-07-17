@@ -68,21 +68,21 @@ export class AutoArrange {
       const normalized = Object.keys(table)
         .sort((i1, i2) => +i1 - +i2)
         .map(key => table[key]);
+      
       const widths = normalized.map(col =>
         Math.max(...col.map(n => this.nodeSize(n).width))
       );
 
-      let x = 0;
+      let x = this.margin.x ;
 
       for (let [i, col] of Object.entries(normalized)) {
         const heights = col.map(n => this.nodeSize(n).height);
         const fullHeight = heights.reduce((a, b) => a + b + this.margin.y);
 
         let y = 0;
-
-        x += widths[i] + this.margin.x;
-
+      
         for (let [j, n] of Object.entries(col)) {
+         
           if (j == 0) {
             y += heights[j] + this.margin.y + heightOffset;
           } else {
@@ -93,8 +93,10 @@ export class AutoArrange {
 
           // this.editor.view.nodes.get(n).translate(x, y - fullHeight / 2);
           this.editor.view.nodes.get(n).translate(x, y);
+          
           this.editor.view.updateConnections({ node: n });
         }
+        x += widths[i] + this.margin.x;
       }
       heightOffset = maximumHeight + 50;
     }
